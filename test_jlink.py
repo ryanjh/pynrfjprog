@@ -1,5 +1,6 @@
 from pynrfjprog import JLink
 import ctypes
+import sys
 
 jlink = JLink.find_latest_dll()
 
@@ -14,8 +15,8 @@ lib = ctypes.cdll.LoadLibrary(jlink)
 print(lib.JLINKARM_EMU_GetNumDevices())
 
 # jlink.open(ip_addr="0.0.0.0:19020")
-addr = "0.0.0.0"
-port = "19020"
+addr = sys.argv[1]
+port = sys.argv[2]
 result = lib.JLINKARM_SelectIP(addr.encode(), int(port))
 if result == 1:
     print("Could not connect to emulator")
