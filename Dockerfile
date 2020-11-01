@@ -15,6 +15,15 @@ RUN tar zxvf *.gz \
     && dpkg -i nRF-Command-Line-Tools*.deb \
     && dpkg -i JLink*.deb
 
+ARG ROOT=/root
+WORKDIR $ROOT
 RUN git clone https://github.com/ryanjh/pylink.git -b test_remote_server
-
 RUN git clone https://github.com/ryanjh/pynrfjprog.git -b remote_server
+
+WORKDIR $ROOT/pylink
+RUN pip3 install -r requirements.txt \
+    && python3 setup.py install
+
+WORKDIR $ROOT/pynrfjprog
+RUN pip3 install -r requirements.txt \
+    && python3 setup.py install
