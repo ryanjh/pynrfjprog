@@ -1291,6 +1291,15 @@ class API(object):
         if output:
             return bytearray(data_out)
 
+    def select_ip(self, ip, port):
+        """
+        Connect to J-Link Pro via TCP/IP.
+
+        """
+        result = self._lib.NRFJPROG_select_ip(ip, port)
+        if result != NrfjprogdllErr.SUCCESS:
+            raise APIError(result)
+
 
     """
     Internal helper functions.
